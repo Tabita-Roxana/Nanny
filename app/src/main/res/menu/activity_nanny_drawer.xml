@@ -16,10 +16,16 @@
             android:id="@+id/nav_editProfile"
             android:icon="@drawable/user"
             android:title="@string/menu_edit" />
+
         <item
             android:id="@+id/nav_messages"
             android:icon="@drawable/messenger"
             android:title="@string/menu_message" />
+        <item
+            android:id="@+id/nav_availability"
+            android:icon="@drawable/calendar"
+            android:title="@string/menu_availability"
+             />
 
     </group>
 </menu>
