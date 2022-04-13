@@ -14,22 +14,22 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.nanny.databinding.ActivityNannyBinding;
+import com.example.nanny.databinding.ActivityParentBinding;
 
-public class NannyActivity extends AppCompatActivity {
+public class ParentActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityNannyBinding binding;
+    private ActivityParentBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityNannyBinding.inflate(getLayoutInflater());
+        binding = ActivityParentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.appBarNanny.toolbar);
-        binding.appBarNanny.fab.setOnClickListener(new View.OnClickListener() {
+        setSupportActionBar(binding.appBarParent.toolbar);
+        binding.appBarParent.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -41,30 +41,24 @@ public class NannyActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home,R.id.nav_availability, R.id.nav_editProfile, R.id.nav_messages)
+                R.id.nav_home, R.id.nav_search, R.id.nav_editProfileParent, R.id.nav_messages)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nanny);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_parent);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding=null;
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.nanny, menu);
+        getMenuInflater().inflate(R.menu.parent, menu);
         return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nanny);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_parent);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/mobile_navigation2"
     app:startDestination="@+id/nav_home">
 
     <fragment
@@ -10,23 +10,21 @@
         android:name="com.example.nanny.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.example.nanny.ui.search.SearchFragment"
+        android:label="@string/menu_search"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/nav_editProfile"
-        android:name="com.example.nanny.ui.edit.EditFragment"
-        android:label="@string/menu_edit"
-        tools:layout="@layout/fragment_edit" />
+        android:id="@+id/nav_editProfileParent"
+        android:name="com.example.nanny.ui.editProfileParent.EditProfileParentFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_editprofileparent" />
 
     <fragment
         android:id="@+id/nav_messages"
         android:name="com.example.nanny.ui.messages.MessagesFragment"
         android:label="@string/menu_message"
         tools:layout="@layout/fragment_messages" />
-
-    <fragment
-        android:id="@+id/nav_availability"
-        android:name="com.example.nanny.ui.availability.AvailabilityFragment"
-        android:label="@string/menu_availability"
-        tools:layout="@layout/fragment_availability" />
 </navigation>
