@@ -81,7 +81,7 @@ public class Register extends AppCompatActivity {
             if (task.isSuccessful() && rbtnNanny.isChecked()){
 
                     User user = new User(txt_email, txt_password, "nanny");
-                    FirebaseDatabase.getInstance().getReference("users").child("nanny")
+                    FirebaseDatabase.getInstance().getReference("users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(task1 -> {
                         Log.i("success","createUserWithEmail:success");
                         Toast.makeText(Register.this, "Registering nanny successful!", Toast.LENGTH_SHORT).show();
@@ -92,7 +92,7 @@ public class Register extends AppCompatActivity {
             }else if (task.isSuccessful() && rbtnParent.isChecked()){
 
                     User user = new User(txt_email, txt_password, "parent");
-                    FirebaseDatabase.getInstance().getReference("users").child("parent")
+                    FirebaseDatabase.getInstance().getReference("users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(task12 -> {
                                 Log.i("success","createUserWithEmail:success");
                                 Toast.makeText(Register.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
