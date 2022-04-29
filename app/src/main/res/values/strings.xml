@@ -15,4 +15,12 @@
     <string name="title_activity_parent">ParentActivity</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="save">Save</string>
+    <string name="city">City</string>
+    <string name="address">Address</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="age">Age</string>
 </resources>

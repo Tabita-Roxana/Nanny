@@ -1,9 +1,7 @@
 package com.example.nanny;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,8 +13,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.nanny.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.nanny.model.UserDetails;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -79,8 +76,9 @@ public class Register extends AppCompatActivity {
 
         auth.createUserWithEmailAndPassword(txt_email,txt_password).addOnCompleteListener(Register.this, task -> {
             if (task.isSuccessful() && rbtnNanny.isChecked()){
+                UserDetails userDetails =  new UserDetails("","","","","");
 
-                    User user = new User(txt_email, txt_password, "nanny");
+                    User user = new User(txt_email, txt_password, "nanny", userDetails);
                     FirebaseDatabase.getInstance().getReference("users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(task1 -> {
                         Log.i("success","createUserWithEmail:success");
@@ -91,7 +89,8 @@ public class Register extends AppCompatActivity {
 
             }else if (task.isSuccessful() && rbtnParent.isChecked()){
 
-                    User user = new User(txt_email, txt_password, "parent");
+                UserDetails userDetails1 =  new UserDetails("","","","","");
+                    User user = new User(txt_email, txt_password, "parent", userDetails1);
                     FirebaseDatabase.getInstance().getReference("users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(task12 -> {
                                 Log.i("success","createUserWithEmail:success");
