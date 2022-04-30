@@ -40,7 +40,6 @@ public class EditProfileParentViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
     private MutableLiveData<String> name;
-    private MutableLiveData<Uri> image;
     private MutableLiveData<String> description;
     private MutableLiveData<String> address;
     private MutableLiveData<String> age;
@@ -52,7 +51,6 @@ public class EditProfileParentViewModel extends ViewModel {
 
 
         name = new MutableLiveData<>();
-        image = new MutableLiveData<>();
         description = new MutableLiveData<>();
         address = new MutableLiveData<>();
         age = new MutableLiveData<>();
@@ -97,9 +95,6 @@ public class EditProfileParentViewModel extends ViewModel {
     }
     public LiveData<String> getAgeText() {
         return age;
-    }
-    public LiveData<Uri> getImage(){
-        return image;
     }
 
 

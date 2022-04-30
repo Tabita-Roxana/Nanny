@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.example.nanny.databinding.FragmentEditprofileparentBinding;
 import com.example.nanny.model.UserDetails;
@@ -29,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -36,6 +39,8 @@ import com.squareup.picasso.Picasso;
 public class EditProfileParentFragment extends Fragment {
 
     private FragmentEditprofileparentBinding binding;
+    FirebaseUser currentUser;
+    StorageReference storageReference;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -61,12 +66,12 @@ public class EditProfileParentFragment extends Fragment {
         editProfileParentViewModel.getDescriptionText().observe(getViewLifecycleOwner(), description::setText);
         editProfileParentViewModel.getNameText().observe(getViewLifecycleOwner(), name::setText);
         editProfileParentViewModel.getAgeText().observe(getViewLifecycleOwner(), age::setText);
-        editProfileParentViewModel.getImage().observe(getViewLifecycleOwner(), profileImage::setImageURI);
 
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference profileRef = storageReference.child("users/"+currentUser+"/profile.jpg");
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        StorageReference profileRef = storageReference.child("users/"+currentUser.getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -91,7 +96,6 @@ public class EditProfileParentFragment extends Fragment {
         });
         profileImage.setOnClickListener(view -> {
             Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
             activityResultLauncher.launch(openGallery);
         });
         return root;
@@ -100,12 +104,16 @@ public class EditProfileParentFragment extends Fragment {
     public void uploadImageToFirebase(Uri imageUri) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference fileRef = storageReference.child("users/"+currentUser+"/profile.jpg");
+
+        StorageReference fileRef = storageReference.child("users/"+currentUser.getUid()+"/profile.jpg");
+        ProgressDialog pd = new ProgressDialog(this.getContext());
+        pd.setMessage("Loading");
+        pd.show();
 
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //
+                pd.dismiss();
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -117,7 +125,14 @@ public class EditProfileParentFragment extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
                 Toast.makeText(getContext(), "Try again", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double progressPercent = (100.00*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                pd.setMessage("Percentage: " +(int) progressPercent+ "");
             }
         });
     }
