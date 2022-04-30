@@ -1,6 +1,11 @@
 package com.example.nanny.ui.editProfileParent;
 
+import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -9,6 +14,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.nanny.model.User;
 import com.example.nanny.model.UserDetails;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -17,14 +25,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.net.URI;
 
 public class EditProfileParentViewModel extends ViewModel {
 
     private DatabaseReference dbRef;
 
+
     private final MutableLiveData<String> mText;
     private MutableLiveData<String> name;
-    private MutableLiveData<String> image;
+    private MutableLiveData<Uri> image;
     private MutableLiveData<String> description;
     private MutableLiveData<String> address;
     private MutableLiveData<String> age;
@@ -81,6 +97,9 @@ public class EditProfileParentViewModel extends ViewModel {
     }
     public LiveData<String> getAgeText() {
         return age;
+    }
+    public LiveData<Uri> getImage(){
+        return image;
     }
 
 

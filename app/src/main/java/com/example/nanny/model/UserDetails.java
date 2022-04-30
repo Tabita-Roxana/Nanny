@@ -63,7 +63,7 @@ public class UserDetails {
     public void setAddress(String address) {
         this.address = address;
     }
-    //    public int getPicture() {
+//        public int getPicture() {
 //        return picture;
 //    }
 //

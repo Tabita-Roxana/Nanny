@@ -1,19 +1,37 @@
 package com.example.nanny.ui.editProfileParent;
 
+import android.app.Activity;
+import android.app.Notification;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.nanny.databinding.FragmentEditprofileparentBinding;
 import com.example.nanny.model.UserDetails;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class EditProfileParentFragment extends Fragment {
 
@@ -28,7 +46,7 @@ public class EditProfileParentFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textEditProfileParent;
-        ImageView imageView  =  binding.editParentProfilePict;
+        ImageView profileImage  =  binding.editParentProfilePict;
         TextView description = binding.etDescription;
         TextView name = binding.etName;
         TextView address = binding.etAddress;
@@ -43,14 +61,67 @@ public class EditProfileParentFragment extends Fragment {
         editProfileParentViewModel.getDescriptionText().observe(getViewLifecycleOwner(), description::setText);
         editProfileParentViewModel.getNameText().observe(getViewLifecycleOwner(), name::setText);
         editProfileParentViewModel.getAgeText().observe(getViewLifecycleOwner(), age::setText);
+        editProfileParentViewModel.getImage().observe(getViewLifecycleOwner(), profileImage::setImageURI);
 
 
-        button.setOnClickListener(view -> editProfileParentViewModel.editProfile(new UserDetails(name.getText().toString(), city.getText().toString(),
-                description.getText().toString(),age.getText().toString(), address.getText().toString())));
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference profileRef = storageReference.child("users/"+currentUser+"/profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(profileImage);
+            }
+        });
 
 
+        button.setOnClickListener(view -> {
+            editProfileParentViewModel.editProfile(new UserDetails(name.getText().toString(), city.getText().toString(),
+                    description.getText().toString(), age.getText().toString(), address.getText().toString()));
+
+        });
+
+
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getData() != null) {
+                Uri imageUri = result.getData().getData();
+                uploadImageToFirebase(imageUri);
+
+            }
+        });
+        profileImage.setOnClickListener(view -> {
+            Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            activityResultLauncher.launch(openGallery);
+        });
         return root;
     }
+
+    public void uploadImageToFirebase(Uri imageUri) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference fileRef = storageReference.child("users/"+currentUser+"/profile.jpg");
+
+        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(binding.editParentProfilePict);
+                    }
+                });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 
     @Override
