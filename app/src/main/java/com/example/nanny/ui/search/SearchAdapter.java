@@ -1,5 +1,7 @@
 package com.example.nanny.ui.search;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.nanny.R;
 import com.example.nanny.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -22,6 +26,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public SearchAdapter(ArrayList<User> usersNanny)
     {
         this.usersNanny=usersNanny;
+        notifyDataSetChanged();
     }
 
     private OnClickListener listener;
@@ -39,14 +44,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
 
         holder.name.setText(usersNanny.get(position).getUserDetails().getName());
         holder.age.setText(usersNanny.get(position).getUserDetails().getAge());
         holder.city.setText(String.valueOf(usersNanny.get(position).getUserDetails().getCity()));
-//        holder.image.setImageResource(usersNanny.get(position).getUserDetails().getPicture());
 
+        Log.i("KEy", usersNanny.get(position).getUserDetails().getPicture());
+        Glide.with(holder.itemView.getContext()).load(usersNanny.get(position).getUserDetails().getPicture()).into(holder.image);
     }
 
     @Override
@@ -66,6 +73,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             age = itemView.findViewById(R.id.item_age);
             city = itemView.findViewById(R.id.item_city);
             image = itemView.findViewById(R.id.item_imageView);
+
             itemView.setOnClickListener(view -> {
                 listener.onClick(usersNanny.get(getAdapterPosition()));
             });
@@ -73,5 +81,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
     public interface OnClickListener {
         void onClick(User user);
+    }
+
+    public void setUsersNanny(ArrayList<User> usersNanny) {
+        this.usersNanny = usersNanny;
+        notifyDataSetChanged();
+
     }
 }

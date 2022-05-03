@@ -1,5 +1,7 @@
 package com.example.nanny.model;
 
+import android.net.Uri;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
@@ -8,12 +10,19 @@ import java.util.Map;
 public class UserDetails {
 
     private String name, city, description, age, address;
-//    private int  picture;
+    private String picture;
 
 
     public UserDetails() {
 
     }
+    public UserDetails(String name, String city, String age, String picture) {
+        this.name = name;
+        this.city = city;
+        this.age = age;
+        this.picture = picture;
+    }
+
 
     public UserDetails(String name, String city, String description, String age, String address) {
         this.name = name;
@@ -21,7 +30,7 @@ public class UserDetails {
         this.description = description;
         this.age = age;
         this.address = address;
-//        this.picture = picture;
+
     }
 
     public String getName() {
@@ -63,13 +72,13 @@ public class UserDetails {
     public void setAddress(String address) {
         this.address = address;
     }
-//        public int getPicture() {
-//        return picture;
-//    }
-//
-//    public void setPicture(int picture) {
-//        this.picture = picture;
-//    }
+        public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     @Exclude
     public Map<String, Object> toMap() {

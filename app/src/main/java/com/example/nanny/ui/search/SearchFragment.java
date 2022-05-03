@@ -1,6 +1,8 @@
 package com.example.nanny.ui.search;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nanny.databinding.FragmentSearchBinding;
 import com.example.nanny.model.User;
+import com.example.nanny.model.UserDetails;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -28,8 +39,11 @@ public class SearchFragment extends Fragment {
 
     private FragmentSearchBinding binding;
     private DatabaseReference database;
+    private StorageReference storageReference;
+
     private RecyclerView recyclerView;
     private SearchAdapter searchAdapter;
+
     private ArrayList<User> users;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -48,28 +62,45 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
         users = new ArrayList<>();
+
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+        database = FirebaseDatabase.getInstance().getReference("users");
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user.getType().equals("nanny")) {
+                        storageReference.child("users").child(dataSnapshot.getKey()).child("profile.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                user.getUserDetails().setPicture(uri.toString());
+                                users.add(user);
+                                searchAdapter.setUsersNanny(users);
+                                searchAdapter.notifyDataSetChanged();
+
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         searchAdapter = new SearchAdapter(users);
         recyclerView.setAdapter(searchAdapter);
 
-//        database.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    User user =  new User(dataSnapshot.getValue(User.class).getName(),dataSnapshot.getValue(User.class).getAge(),
-//                            dataSnapshot.getValue(User.class).getCity(),dataSnapshot.getValue(User.class).getPicture());
-//                    users.add(user);
-//                }
-//                searchAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+
         //TODO move unnecessary in View Model
 
-        searchAdapter.setOnClickListener(student -> {
+        searchAdapter.setOnClickListener(user -> {
             //TODO set the listener
         });
 

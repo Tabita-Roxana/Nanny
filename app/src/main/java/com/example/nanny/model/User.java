@@ -19,6 +19,11 @@ public class User {
         this.password = password;
         this.type = type;
     }
+    public User( String type,UserDetails userDetails)
+    {
+        this.type = type;
+        this.userDetails =  userDetails;
+    }
 
 
     public User(String email, String password, String type, UserDetails userDetails) {
