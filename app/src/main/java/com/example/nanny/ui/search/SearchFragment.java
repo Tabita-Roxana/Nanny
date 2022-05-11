@@ -55,6 +55,7 @@ public class SearchFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textSearch;
+
         searchViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         recyclerView = binding.recycleViewSearch;
