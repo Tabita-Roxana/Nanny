@@ -84,7 +84,6 @@ public class UserDetails {
     public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("name", name);
-//        result.put("picture", picture);
         result.put("city", city);
         result.put("description", description);
         result.put("age", age);

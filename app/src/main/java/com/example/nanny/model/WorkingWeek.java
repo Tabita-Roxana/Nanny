@@ -23,6 +23,10 @@ public class WorkingWeek {
         return days.size();
     }
 
+    public ArrayList<WorkingDay> getDays() {
+        return days;
+    }
+
     public void addDay(WorkingDay day){
         days.add(day);
     }

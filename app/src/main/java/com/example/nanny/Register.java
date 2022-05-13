@@ -14,8 +14,12 @@ import android.widget.Toast;
 
 import com.example.nanny.model.User;
 import com.example.nanny.model.UserDetails;
+import com.example.nanny.model.WorkingDay;
+import com.example.nanny.model.WorkingWeek;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 public class Register extends AppCompatActivity {
 
@@ -77,8 +81,17 @@ public class Register extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(txt_email,txt_password).addOnCompleteListener(Register.this, task -> {
             if (task.isSuccessful() && rbtnNanny.isChecked()){
                 UserDetails userDetails =  new UserDetails("","","","","");
+                WorkingWeek workingWeek =  new WorkingWeek();
+                workingWeek.addDay(new WorkingDay(false,false,false,"M"));
+                workingWeek.addDay(new WorkingDay(false,false,false,"T"));
+                workingWeek.addDay(new WorkingDay(false,false,false,"W"));
+                workingWeek.addDay(new WorkingDay(false,false,false,"T"));
+                workingWeek.addDay(new WorkingDay(false,false,false,"F"));
+                workingWeek.addDay(new WorkingDay(false,false,false,"S"));
+                workingWeek.addDay(new WorkingDay(false,false,false,"S"));
 
-                    User user = new User(txt_email, txt_password, "nanny", userDetails);
+
+                    User user = new User(txt_email, txt_password, "nanny", userDetails, workingWeek);
                     FirebaseDatabase.getInstance().getReference("users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(task1 -> {
                         Log.i("success","createUserWithEmail:success");
@@ -90,7 +103,7 @@ public class Register extends AppCompatActivity {
             }else if (task.isSuccessful() && rbtnParent.isChecked()){
 
                 UserDetails userDetails1 =  new UserDetails("","","","","");
-                    User user = new User(txt_email, txt_password, "parent", userDetails1);
+                    User user = new User(txt_email, txt_password, "parent", userDetails1,null);
                     FirebaseDatabase.getInstance().getReference("users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(task12 -> {
                                 Log.i("success","createUserWithEmail:success");
@@ -106,12 +119,6 @@ public class Register extends AppCompatActivity {
             }
         });
 
-//        if(rbtnNanny.isChecked()){
-//            startActivity(new Intent(Register.this,NannyActivity.class));
-//        }
-//        else{
-//            startActivity(new Intent(Register.this,ParentActivity.class));
-//        }
 
 
     }

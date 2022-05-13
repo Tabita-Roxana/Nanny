@@ -9,10 +9,9 @@ public class User {
     private String email, password, type;
     private UserDetails userDetails;
     private ArrayList<Child> children;
+    private WorkingWeek workingWeek;
 
-
-    public User() {
-    }
+    public User() {}
 
     public User(String email, String password, String type) {
         this.email = email;
@@ -26,11 +25,12 @@ public class User {
     }
 
 
-    public User(String email, String password, String type, UserDetails userDetails) {
+    public User(String email, String password, String type, UserDetails userDetails, WorkingWeek workingWeek) {
         this.email = email;
         this.password = password;
         this.type = type;
         this.userDetails = userDetails;
+        this.workingWeek = workingWeek;
         children = new ArrayList<>();
 
     }
@@ -73,5 +73,13 @@ public class User {
 
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
+    }
+
+    public WorkingWeek getWorkingWeek() {
+        return workingWeek;
+    }
+
+    public void setWorkingWeek(WorkingWeek workingWeek) {
+        this.workingWeek = workingWeek;
     }
 }

@@ -21,6 +21,10 @@ public class WorkingDayAdapter extends RecyclerView.Adapter<WorkingDayAdapter.Vi
 
     private WorkingWeek workingWeek;
 
+    public WorkingDayAdapter() {
+        this.workingWeek = new WorkingWeek();
+    }
+
     public WorkingDayAdapter(WorkingWeek workingWeek){
         this.workingWeek=workingWeek;
         notifyDataSetChanged();
@@ -96,5 +100,7 @@ public class WorkingDayAdapter extends RecyclerView.Adapter<WorkingDayAdapter.Vi
         notifyDataSetChanged();
     }
 
-
+    public WorkingWeek getWorkingWeek() {
+        return workingWeek;
+    }
 }
