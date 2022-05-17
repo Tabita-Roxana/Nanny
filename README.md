@@ -1,5 +1,7 @@
 # Nanny
 
+Video: https://www.youtube.com/watch?v=Jwu4xiHt-eY
+
 The application idea comes with the parents’ need to leave their child with someone else for few hours a day without having hired a long-term babysitter. The app can be used inside one institution the parent has access in (kindergarten, school, work) for finding someone to take care of the child and to be known by the parent. At the same time, other parents(grandparents) from school, kindergarten that have no job can offer themselves for babysitting.
 
 User stories:
