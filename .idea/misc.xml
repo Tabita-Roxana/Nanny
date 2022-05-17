@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/activity_nanny.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/activity_parent.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/activity_register.xml" value="0.24816446402349487" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/app_bar_nanny.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/app_bar_parent.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/content_nanny.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/content_parent.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_availability.xml" value="0.25" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_edit.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_editProfileParent.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_editprofileparent.xml" value="0.33" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_gallery.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_messages.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_search.xml" value="0.1" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_see_activity.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_see_availability.xml" value="0.25" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/fragment_slideshow.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/login_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/nav_header_nanny.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/nav_header_parent.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/recycler_item_day.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/layout/user_item_list.xml" value="0.3541666666666667" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/menu/activity_nanny_drawer.xml" value="0.5" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/menu/nanny.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/menu/parent.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tabit/AndroidStudioProjects/Nanny/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.106" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class User {
 
-    private String email, password, type;
+    private String email, password, type, id;
     private UserDetails userDetails;
     private ArrayList<Child> children;
     private WorkingWeek workingWeek;
@@ -81,5 +81,13 @@ public class User {
 
     public void setWorkingWeek(WorkingWeek workingWeek) {
         this.workingWeek = workingWeek;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -27,7 +27,7 @@ public class EditViewModel extends ViewModel {
 
     public EditViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is edit nanny fragment");
+        mText.setValue("Edit your profile!");
 
         name = new MutableLiveData<>();
         description = new MutableLiveData<>();

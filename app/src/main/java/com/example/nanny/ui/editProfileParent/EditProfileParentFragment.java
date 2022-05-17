@@ -83,6 +83,7 @@ public class EditProfileParentFragment extends Fragment {
         button.setOnClickListener(view -> {
             editProfileParentViewModel.editProfile(new UserDetails(name.getText().toString(), city.getText().toString(),
                     description.getText().toString(), age.getText().toString(), address.getText().toString()));
+            Toast.makeText(getActivity(), "Information saved", Toast.LENGTH_SHORT).show();
 
         });
 

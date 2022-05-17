@@ -47,7 +47,7 @@ public class EditProfileParentViewModel extends ViewModel {
 
     public EditProfileParentViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is edit profile parent fragment");
+        mText.setValue("Edit your profile!");
 
 
         name = new MutableLiveData<>();

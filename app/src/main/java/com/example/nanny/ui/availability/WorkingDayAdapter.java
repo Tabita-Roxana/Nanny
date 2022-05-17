@@ -4,17 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nanny.R;
-import com.example.nanny.model.User;
 import com.example.nanny.model.WorkingDay;
 import com.example.nanny.model.WorkingWeek;
-import com.example.nanny.ui.search.SearchAdapter;
 
 
 public class WorkingDayAdapter extends RecyclerView.Adapter<WorkingDayAdapter.ViewHolder>{

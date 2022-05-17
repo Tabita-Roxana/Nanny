@@ -14,7 +14,16 @@
         android:id="@+id/nav_search"
         android:name="com.example.nanny.ui.search.SearchFragment"
         android:label="@string/menu_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_search_to_nav_avail"
+            app:destination="@id/SeeAvailability" />
+    </fragment>
+    <fragment
+        android:id="@+id/SeeAvailability"
+        android:name="com.example.nanny.ui.search.SeeAvailabilityFragment"
+        android:label="See availability"
+        tools:layout="@layout/fragment_see_availability" />
 
     <fragment
         android:id="@+id/nav_editProfileParent"

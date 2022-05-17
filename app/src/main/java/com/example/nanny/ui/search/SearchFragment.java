@@ -1,29 +1,26 @@
 package com.example.nanny.ui.search;
 
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nanny.R;
 import com.example.nanny.databinding.FragmentSearchBinding;
 import com.example.nanny.model.User;
-import com.example.nanny.model.UserDetails;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +37,7 @@ public class SearchFragment extends Fragment {
     private FragmentSearchBinding binding;
     private DatabaseReference database;
     private StorageReference storageReference;
+    private NavController navController;
 
     private RecyclerView recyclerView;
     private SearchAdapter searchAdapter;
@@ -73,6 +71,7 @@ public class SearchFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
+                    user.setId(dataSnapshot.getKey());
                     if (user.getType().equals("nanny")) {
                         storageReference.child("users").child(dataSnapshot.getKey()).child("profile.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
@@ -102,20 +101,23 @@ public class SearchFragment extends Fragment {
         //TODO move unnecessary in View Model
 
         searchAdapter.setOnClickListener(user -> {
-            //TODO set the listener
+//            Toast.makeText(getContext(), user.getEmail(), Toast.LENGTH_SHORT).show();
+            Bundle bundle = new Bundle();
+            bundle.putString("userId", user.getId());
+            navController.navigate(R.id.SeeAvailability,bundle);
         });
 
         return root;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }
